@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        applicationId "io.kuban.projection"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
+            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
+    }
+
+    //    //签名文件
+    signingConfigs {
+        release {
+            keyAlias 'projection'
+            keyPassword 'projection123456'
+            storeFile file('../projection.jks')
+            storePassword 'projection123456'
+        }
+        debug {
+            keyAlias 'projection'
+            keyPassword 'projection123456'
+            storeFile file('../projection.jks')
+            storePassword 'projection123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    //多渠道打包
+    productFlavors {
+
+        YINGYONGBAO {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+}

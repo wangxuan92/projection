@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/login_logo" />
+
+        <ImageView
+            android:id="@+id/exit_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:padding="16dp"
+            android:src="@drawable/icon_delete" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/phone_num"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_btn_search"
+            android:hint="@string/login_phone_num"
+            android:maxLength="12"
+            android:paddingLeft="16dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightgrey"
+            android:textSize="14sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone_num"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/sms_code"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_search"
+                android:hint="@string/login_sms_code"
+                android:inputType="number"
+                android:maxLength="12"
+                android:paddingLeft="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/lightgrey"
+                android:textSize="14sp" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_btn_user_login_selector"
+        android:gravity="center"
+        android:text="@string/login_button"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

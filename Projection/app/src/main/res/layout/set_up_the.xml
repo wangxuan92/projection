@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/popup_bg_color1">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:paddingLeft="20dp"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/switch_theme"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:background="@drawable/item_selector"-->
+    <!--android:paddingLeft="16dp"-->
+    <!--android:paddingRight="16dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="@string/switch_theme"-->
+    <!--android:textSize="20sp" />-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:src="@drawable/icon_next" />-->
+
+    <!--</RelativeLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/version_update"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/item_selector"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/version_update_text"
+            android:textColor="@color/popup_bg_color1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/prompt"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:background="@drawable/xml_round_red_icon"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/sho_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/popup_bg_color1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/exit_program"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/bg_btn_user_login_selector"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/exit_program"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+</LinearLayout>

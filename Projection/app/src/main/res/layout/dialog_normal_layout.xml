@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginTop="15dp"
+
+        android:gravity="center"
+        android:text="管理员登录"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_btn_search"
+        android:gravity="left|center"
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:maxLength="11"
+        android:paddingLeft="10dp"
+        android:singleLine="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/number1"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_btn_search"
+            android:gravity="left|center"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
+
+
+        <io.kuban.meetingdisplay.view.TimeTextView
+            android:id="@+id/gain_sms_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/number1"
+            android:layout_alignRight="@+id/number1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/login_gain_sms_code"
+            android:textColor="@color/popup_bg_color_35"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/positiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:gravity="center"
+            android:text="登录" />
+    </LinearLayout>
+
+</LinearLayout>
