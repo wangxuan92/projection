@@ -72,7 +72,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.4.0'
     testCompile 'junit:junit:4.12'
-
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.facebook.stetho:stetho:1.3.1'
     compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
@@ -85,5 +84,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
-
+    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100.jar')
 }

@@ -43,7 +43,7 @@ public class LogInActivity extends BaseCompatActivity {
     private String app_id;
     private String app_secret;
     private String meeting_rooms_id = "";
-    private String url = "https://192.168.2.67:8443/screensharingtest2.html";
+    private String url = "http://10.0.108.166:3111/screensharing.html";
     private TabletInformationModel tabletInformationModel;
 
 
@@ -56,7 +56,7 @@ public class LogInActivity extends BaseCompatActivity {
         }
         CustomerApplication.Isexit = false;
         if (!TextUtils.isEmpty(meeting_rooms_id)) {
-            ActivityManager.startWebActivity(LogInActivity.this, new Intent(), url);
+            ActivityManager.startWebX5Activity(LogInActivity.this, new Intent(), url);
             finish();
         }
         setContentView(R.layout.login_activity);
@@ -80,7 +80,7 @@ public class LogInActivity extends BaseCompatActivity {
                         cache.put(CustomerApplication.TABLETINFORMATION, tabletInformationModel);
                         cache.put("is_thereare", true);
                         UserManager.saveUserObject(app_id, app_secret);
-                        ActivityManager.startWebActivity(LogInActivity.this, new Intent(), url);
+                        ActivityManager.startWebX5Activity(LogInActivity.this, new Intent(), url);
                         finish();
                         dismissProgressDialog();
                         return;
