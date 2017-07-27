@@ -11,10 +11,10 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
-            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-        }
+//        ndk {
+//            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
+//            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+//        }
 
         buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
     }
@@ -82,7 +82,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
-    compile 'com.jakewharton:butterknife:8.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100.jar')
+    compile project(':CrosswalkLibrary')
+    configurations.all*.exclude module: 'jsr305'
 }

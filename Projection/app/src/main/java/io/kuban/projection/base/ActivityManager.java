@@ -8,7 +8,7 @@ import io.kuban.projection.activity.ChooseActivity;
 import io.kuban.projection.activity.LogInActivity;
 import io.kuban.projection.activity.SetUpTheActivity;
 import io.kuban.projection.activity.WebActivity;
-import io.kuban.projection.activity.WebX5Activity;
+import io.kuban.projection.activity.XWalkViewActivity;
 
 
 /**
@@ -58,9 +58,9 @@ public class ActivityManager {
         activity.startActivity(intent);
     }
 
-    //-----------------------------------------WebActivity（腾讯x5内核）
-    public static void startWebX5Activity(Activity activity, Intent intent, String url) {
-        intent.setClass(activity, WebX5Activity.class);
+    //-----------------------------------------XWalkViewActivity
+    public static void startXWalkViewActivity(Activity activity, Intent intent, String url) {
+        intent.setClass(activity, XWalkViewActivity.class);
         intent.putExtra(URL, url);
         activity.startActivity(intent);
     }

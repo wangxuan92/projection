@@ -56,7 +56,7 @@ public class LogInActivity extends BaseCompatActivity {
         }
         CustomerApplication.Isexit = false;
         if (!TextUtils.isEmpty(meeting_rooms_id)) {
-            ActivityManager.startWebX5Activity(LogInActivity.this, new Intent(), url);
+            ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url);
             finish();
         }
         setContentView(R.layout.login_activity);
@@ -80,7 +80,7 @@ public class LogInActivity extends BaseCompatActivity {
                         cache.put(CustomerApplication.TABLETINFORMATION, tabletInformationModel);
                         cache.put("is_thereare", true);
                         UserManager.saveUserObject(app_id, app_secret);
-                        ActivityManager.startWebX5Activity(LogInActivity.this, new Intent(), url);
+                        ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url);
                         finish();
                         dismissProgressDialog();
                         return;

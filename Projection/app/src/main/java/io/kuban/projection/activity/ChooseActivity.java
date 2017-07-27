@@ -135,7 +135,7 @@ public class ChooseActivity extends BaseCompatActivity {
                         Log.e("查询平板信息", "===========查询平2222板信息");
                         cache.put("is_thereare", true);
                         UserManager.saveUserObject(app_id, app_secret);
-                        ActivityManager.startWebX5Activity(ChooseActivity.this, new Intent(), url);
+                        ActivityManager.startXWalkViewActivity(ChooseActivity.this, new Intent(), url);
                         finish();
                         dismissProgressDialog();
                         return;
