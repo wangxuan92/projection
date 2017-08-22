@@ -21,8 +21,10 @@ import butterknife.OnClick;
 import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.base.ActivityManager;
+import io.kuban.projection.base.Constants;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.model.TabletInformationModel;
+import io.kuban.projection.util.ErrorUtil;
 import io.kuban.projection.util.ToastUtils;
 import io.kuban.projection.util.UserManager;
 import retrofit2.Call;
@@ -43,7 +45,6 @@ public class LogInActivity extends BaseCompatActivity {
     private String app_id;
     private String app_secret;
     private String meeting_rooms_id = "";
-    private String url = "http://10.0.108.166:3111/screensharing.html";
     private TabletInformationModel tabletInformationModel;
 
 
@@ -56,8 +57,7 @@ public class LogInActivity extends BaseCompatActivity {
         }
         CustomerApplication.Isexit = false;
         if (!TextUtils.isEmpty(meeting_rooms_id)) {
-            ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url);
-            finish();
+            http(UserManager.getAppId(), UserManager.getAppSecret(), false);
         }
         setContentView(R.layout.login_activity);
         ButterKnife.bind(this);
@@ -69,7 +69,8 @@ public class LogInActivity extends BaseCompatActivity {
      * @param app_id
      * @param app_secret
      */
-    public void http(final String app_id, final String app_secret) {
+    public void http(final String app_id, final String app_secret, final boolean isLogIn) {
+        showProgressDialog();
         Call<TabletInformationModel> createSessionCall = getKubanApi().getTabletInformation(CustomerApplication.device_id, app_id, app_secret);
         createSessionCall.enqueue(new Callback<TabletInformationModel>() {
             @Override
@@ -78,28 +79,37 @@ public class LogInActivity extends BaseCompatActivity {
                     if (!TextUtils.isEmpty(response.body().id)) {
                         TabletInformationModel tabletInformationModel = response.body();
                         cache.put(CustomerApplication.TABLETINFORMATION, tabletInformationModel);
-                        cache.put("is_thereare", true);
                         UserManager.saveUserObject(app_id, app_secret);
-                        ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url);
+                        StringBuffer url = new StringBuffer();
+                        url.append(Constants.URL);
+                        url.append(tabletInformationModel.area_id);
+                        ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url.toString());
                         finish();
                         dismissProgressDialog();
                         return;
                     } else {
-                        login(app_id, app_secret);
+                        if (isLogIn) {
+                            login(app_id, app_secret);
+                        } else {
+                            dismissProgressDialog();
+                        }
                     }
                 } else {
-                    login(app_id, app_secret);
+                    ErrorUtil.handleError(activity, response);
+                    dismissProgressDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<TabletInformationModel> call, Throwable t) {
-                Log.e("查询该设备是否已存在===========", call + "失败" + t);
+                Log.e(LOG_TAG, "查询该设备是否已存在  " + call + "失败" + t);
+                ErrorUtil.handleError(activity, t);
             }
         });
     }
 
     public void login(final String app_id, final String app_secret) {
+        showProgressDialog();
         Call<List<ChooseModel>> createSessionCall = getKubanApi().getLocations(app_id, app_secret);
         createSessionCall.enqueue(new Callback<List<ChooseModel>>() {
             @Override
@@ -123,11 +133,14 @@ public class LogInActivity extends BaseCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                dismissProgressDialog();
             }
 
             @Override
             public void onFailure(Call<List<ChooseModel>> call, Throwable t) {
-                Log.e("登录失败===========", call + "登录失败" + t);
+                Log.e(LOG_TAG, call + "登录失败" + t);
+                ErrorUtil.handleError(activity, t);
+                dismissProgressDialog();
             }
         });
     }
@@ -143,7 +156,7 @@ public class LogInActivity extends BaseCompatActivity {
         if (!TextUtils.isEmpty(app_id)) {
             if (!TextUtils.isEmpty(app_secret)) {
                 showProgressDialog();
-                http(app_id, app_secret);
+                http(app_id, app_secret, true);
             } else {
                 ToastUtils.customShort(LogInActivity.this, "请输入密码");
             }

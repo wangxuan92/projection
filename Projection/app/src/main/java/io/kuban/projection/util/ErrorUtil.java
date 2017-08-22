@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import io.kuban.projection.activity.WebActivity;
+import io.kuban.projection.base.ActivityManager;
 import retrofit2.Response;
 
 /**
@@ -138,6 +138,8 @@ public class ErrorUtil {
     // Authorization failure
     public static class HttpUnauthorizedEvent {
         public HttpUnauthorizedEvent(Activity activity) {
+            UserManager.getRemove();
+            ActivityManager.startLogInActivity(activity, new Intent());
         }
     }
 }

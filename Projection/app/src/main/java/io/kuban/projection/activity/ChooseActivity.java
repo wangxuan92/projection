@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.base.ActivityManager;
+import io.kuban.projection.base.Constants;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.model.TabletInformationModel;
 import io.kuban.projection.util.ToastUtils;
@@ -50,18 +51,15 @@ public class ChooseActivity extends BaseCompatActivity {
     private String app_id;
     private String app_secret;
     private MyAdapter adapter;
-    private boolean is = true;
-    private boolean isThereare;//是否存在
+    private boolean isSelectBranch = true;
     private String meeting_rooms_id;
     private String location_id;
-    private String url = "https://192.168.2.67:8443/screensharingtest2.html";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_activity);
         chooseModelList.addAll(CustomerApplication.lListcChooseMode);
-        isThereare = cache.getAsBoolean("is_thereare");
         ButterKnife.bind(this);
         app_id = UserManager.getAppId();
         app_secret = UserManager.getAppSecret();
@@ -70,15 +68,15 @@ public class ChooseActivity extends BaseCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (is) {
+                if (isSelectBranch) {
                     //选择分店
                     http(chooseModelList.get(position).id);
                     location_id = chooseModelList.get(position).id;
                 } else {
                     //选择会议室
-                    is = true;
+//                    is = true;
                     meeting_rooms_id = chooseModelList.get(position).id;
-                    tabletInformation(chooseModelList.get(position).name + "显示屏");
+                    tabletInformation(chooseModelList.get(position).name + "电视投屏");
                 }
             }
         });
@@ -91,30 +89,26 @@ public class ChooseActivity extends BaseCompatActivity {
      */
 
     private void tabletInformation(String device_name) {
-        if (!isThereare) {
-            Map<String, String> queries = new HashMap<>();
-            queries.put("area_id", meeting_rooms_id);
-            queries.put("location_id", location_id);
-            queries.put("device_name", device_name);
-            queries.put("device_id", CustomerApplication.device_id);
-            Call<TabletInformationModel> announcementsCall = getKubanApi().sendRecordTabletInformation(app_id, app_secret, queries);
-            announcementsCall.enqueue(new Callback<TabletInformationModel>() {
-                @Override
-                public void onResponse(Call<TabletInformationModel> call, Response<TabletInformationModel> response) {
-                    if (response != null) {
-                        isThereare = true;
-                        cache.put("is_thereare", true);
-                        http(app_id, app_secret);
-                        Log.e("================", " 记录平板信息成功 ");
-                    }
+        Map<String, String> queries = new HashMap<>();
+        queries.put("area_id", meeting_rooms_id);
+        queries.put("location_id", location_id);
+        queries.put("device_name", device_name);
+        queries.put("device_id", CustomerApplication.device_id);
+        Call<TabletInformationModel> announcementsCall = getKubanApi().sendRecordTabletInformation(app_id, app_secret, queries);
+        announcementsCall.enqueue(new Callback<TabletInformationModel>() {
+            @Override
+            public void onResponse(Call<TabletInformationModel> call, Response<TabletInformationModel> response) {
+                if (response != null) {
+                    http(app_id, app_secret);
+                    Log.e(LOG_TAG, " 记录平板信息成功 ");
                 }
+            }
 
-                @Override
-                public void onFailure(Call<TabletInformationModel> call, Throwable t) {
-                    Log.e("=========onFailure", " Throwable  " + t);
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<TabletInformationModel> call, Throwable t) {
+                Log.e(LOG_TAG, " Throwable  " + t);
+            }
+        });
     }
 
     /**
@@ -132,10 +126,12 @@ public class ChooseActivity extends BaseCompatActivity {
                     if (!TextUtils.isEmpty(response.body().id)) {
                         TabletInformationModel tabletInformationModel = response.body();
                         cache.put(CustomerApplication.TABLETINFORMATION, tabletInformationModel);
-                        Log.e("查询平板信息", "===========查询平2222板信息");
-                        cache.put("is_thereare", true);
+                        Log.e(LOG_TAG, "查询平板信息");
                         UserManager.saveUserObject(app_id, app_secret);
-                        ActivityManager.startXWalkViewActivity(ChooseActivity.this, new Intent(), url);
+                        StringBuffer url = new StringBuffer();
+                        url.append(Constants.URL);
+                        url.append(tabletInformationModel.area_id);
+                        ActivityManager.startXWalkViewActivity(ChooseActivity.this, new Intent(), url.toString());
                         finish();
                         dismissProgressDialog();
                         return;
@@ -162,7 +158,7 @@ public class ChooseActivity extends BaseCompatActivity {
                         chooseModelList.clear();
                         chooseModelList.addAll(response.body());
                         adapter.notifyDataSetChanged();
-                        is = false;
+                        isSelectBranch = false;
                     } else {
                         ToastUtils.showShort(ChooseActivity.this, "没有可选会议室");
                     }
@@ -182,22 +178,22 @@ public class ChooseActivity extends BaseCompatActivity {
 
             @Override
             public void onFailure(Call<List<ChooseModel>> call, Throwable t) {
-                Log.e("onFailure===========", call + "onFailure" + t);
+                Log.e(LOG_TAG, call + "onFailure" + t);
             }
         });
     }
 
     @OnClick(R.id.btn_back)
     public void back(View view) {
-        if (is) {
-            ActivityManager.startLogInActivity(ChooseActivity.this, new Intent());
-            finish();
-        } else {
-            chooseModelList.clear();
-            chooseModelList.addAll(CustomerApplication.lListcChooseMode);
-            adapter.notifyDataSetChanged();
-            is = true;
-        }
+//        if (is) {
+        ActivityManager.startLogInActivity(ChooseActivity.this, new Intent());
+        finish();
+//        } else {
+//            chooseModelList.clear();
+//            chooseModelList.addAll(CustomerApplication.lListcChooseMode);
+//            adapter.notifyDataSetChanged();
+//            is = true;
+//        }
     }
 
     private class MyAdapter extends BaseAdapter {

@@ -51,9 +51,7 @@ public class UserManager {
     }
 
     public static void getRemove() {
+        cache.remove(APP_ID);
         cache.remove(APP_SECRET);
-        cache.remove("meeting_rooms_id");
-        cache.remove("location_id");
-        cache.remove("is_thereare");
     }
 }

@@ -1,6 +1,7 @@
 package io.kuban.projection.activity;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -38,6 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseCompatActivity extends FragmentActivity {
     protected LoadingDialog ld;
     public ACache cache;
+    public String LOG_TAG;
+    public Activity activity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class BaseCompatActivity extends FragmentActivity {
         window.setAttributes(params);
         //添加Activity到堆栈
         CustomerApplication.getInstance().addActivity(this);
-
+        LOG_TAG = this.getClass().getSimpleName();
+        activity = this;
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setStatusBarUpperAPI21();
@@ -80,11 +84,6 @@ public class BaseCompatActivity extends FragmentActivity {
                 .build();
         KuBanApi kuBanApi = retrofit.create(KuBanApi.class);
         return kuBanApi;
-    }
-
-    public KuBanApi getKubanApi2() {
-        CustomerApplication customerApplication = (CustomerApplication) getApplication();
-        return customerApplication.getKubanApi();
     }
 
     public void showProgressDialog() {
