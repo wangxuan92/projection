@@ -6,6 +6,7 @@ import android.os.Bundle;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.internal.XWalkSettings;
 
 import io.kuban.projection.R;
 
@@ -32,10 +33,13 @@ public class XWalkViewActivity extends BaseCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_web_activity);
+        String url = getIntent().getStringExtra("url");
         mXwalkView = (XWalkView) findViewById(R.id.xwalkView);
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
         mXwalkView.setUIClient(new MyUIClient(mXwalkView));
-        mXwalkView.load("http://10.0.108.166:3111/screensharing.html", null);
+        mXwalkView.load(url, null);
+        XWalkSettings xWalkSettings = mXwalkView.getSettings();
+        xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
     }
 
     @Override
@@ -60,6 +64,7 @@ public class XWalkViewActivity extends BaseCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (mXwalkView != null) {
+            mXwalkView.clearCache(false);
             mXwalkView.onDestroy();
         }
     }
