@@ -75,7 +75,9 @@ public class LogInActivity extends BaseCompatActivity {
         createSessionCall.enqueue(new Callback<TabletInformationModel>() {
             @Override
             public void onResponse(Call<TabletInformationModel> call, Response<TabletInformationModel> response) {
+
                 if (null != response.body()) {
+                    dismissProgressDialog();
                     if (!TextUtils.isEmpty(response.body().id)) {
                         TabletInformationModel tabletInformationModel = response.body();
                         cache.put(CustomerApplication.TABLETINFORMATION, tabletInformationModel);
@@ -85,7 +87,6 @@ public class LogInActivity extends BaseCompatActivity {
                         url.append(tabletInformationModel.area_id);
                         ActivityManager.startXWalkViewActivity(LogInActivity.this, new Intent(), url.toString());
                         finish();
-                        dismissProgressDialog();
                         return;
                     } else {
                         if (isLogIn) {
@@ -103,6 +104,7 @@ public class LogInActivity extends BaseCompatActivity {
             @Override
             public void onFailure(Call<TabletInformationModel> call, Throwable t) {
                 Log.e(LOG_TAG, "查询该设备是否已存在  " + call + "失败" + t);
+                dismissProgressDialog();
                 ErrorUtil.handleError(activity, t);
             }
         });
@@ -155,7 +157,6 @@ public class LogInActivity extends BaseCompatActivity {
         app_secret = sms_code.getText().toString().trim();
         if (!TextUtils.isEmpty(app_id)) {
             if (!TextUtils.isEmpty(app_secret)) {
-                showProgressDialog();
                 http(app_id, app_secret, true);
             } else {
                 ToastUtils.customShort(LogInActivity.this, "请输入密码");

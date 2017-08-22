@@ -10,6 +10,8 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.bugtags.library.Bugtags;
+import com.bugtags.library.BugtagsOptions;
 import com.facebook.stetho.Stetho;
 
 import java.io.File;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.kuban.projection.base.ActivityManager;
+import io.kuban.projection.base.Constants;
 import io.kuban.projection.base.MyApplication;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.util.ACache;
@@ -51,6 +54,15 @@ public class CustomerApplication extends MyApplication {
         UserManager.init(this);
         obtainMAC();
         obtainMessage();
+
+        BugtagsOptions options = new BugtagsOptions.Builder().
+                trackingLocation(false).//是否获取位置，默认 true
+                trackingCrashLog(true).//是否收集crash，默认 true
+                trackingConsoleLog(true).//是否收集console log，默认 true
+                trackingUserSteps(true).//是否收集用户操作步骤，默认 true
+                trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
+                build();
+        Bugtags.start(BuildConfig.DEBUG ? Constants.BUGTAGS_APP_ID_BETA : Constants.BUGTAGS_APP_ID_LIVE, this, Bugtags.BTGInvocationEventNone, options);
         Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程  以下用来捕获程序崩溃异常
         //----------------保持长亮
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -68,7 +80,7 @@ public class CustomerApplication extends MyApplication {
         }
         device_id = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-//        device_id = "1231434259258332";
+//        device_id = "12314705258332";
     }
 
     /**

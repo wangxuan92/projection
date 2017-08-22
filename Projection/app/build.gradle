@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'com.bugtags.library.plugin'
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.3'
@@ -12,11 +13,11 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        ndk {
-//            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
+////            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
 //            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
 //        }
+        buildConfigField "String", "BASE_URL", "\"https://api.kuban.io/managements/v1/\""
 
-        buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
     }
 
     //    //签名文件
@@ -49,6 +50,7 @@ android {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -63,6 +65,17 @@ android {
         }
 
     }
+}
+
+//Bugtags 插件配置
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "bfaed5df10a9b8cf0bea7508f3cb2fbb"  //这里是你的 appKey
+    appSecret "5eb501aec12ac7c74f35de75f6b19f64"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+
+    //网络跟踪功能配置(企业版)
+    trackingNetworkEnabled true
 }
 
 dependencies {
@@ -84,5 +97,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':CrosswalkLibrary')
+    compile 'com.bugtags.library:bugtags-lib:latest.integration'
     configurations.all*.exclude module: 'jsr305'
 }

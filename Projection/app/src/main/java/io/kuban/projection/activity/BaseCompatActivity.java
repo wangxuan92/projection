@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bugtags.library.Bugtags;
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.common.LogUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -346,6 +348,26 @@ public class BaseCompatActivity extends FragmentActivity {
         return netType;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //注：回调 1
+        Bugtags.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //注：回调 2
+        Bugtags.onPause(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
+    }
 
     @Override
     protected void onDestroy() {

@@ -2,11 +2,14 @@ package io.kuban.projection.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.internal.XWalkSettings;
+
+import java.util.List;
 
 import io.kuban.projection.R;
 
@@ -34,12 +37,15 @@ public class XWalkViewActivity extends BaseCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_web_activity);
         String url = getIntent().getStringExtra("url");
+        Log.e(LOG_TAG, "url=====" + url);
         mXwalkView = (XWalkView) findViewById(R.id.xwalkView);
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
         mXwalkView.setUIClient(new MyUIClient(mXwalkView));
         mXwalkView.load(url, null);
         XWalkSettings xWalkSettings = mXwalkView.getSettings();
-        xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
+        if (xWalkSettings != null) {
+            xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
+        }
     }
 
     @Override

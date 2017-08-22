@@ -32,6 +32,7 @@ import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.model.TabletInformationModel;
+import io.kuban.projection.util.ErrorUtil;
 import io.kuban.projection.util.ToastUtils;
 import io.kuban.projection.util.UserManager;
 import retrofit2.Call;
@@ -89,6 +90,7 @@ public class ChooseActivity extends BaseCompatActivity {
      */
 
     private void tabletInformation(String device_name) {
+        showProgressDialog();
         Map<String, String> queries = new HashMap<>();
         queries.put("area_id", meeting_rooms_id);
         queries.put("location_id", location_id);
@@ -102,11 +104,14 @@ public class ChooseActivity extends BaseCompatActivity {
                     http(app_id, app_secret);
                     Log.e(LOG_TAG, " 记录平板信息成功 ");
                 }
+                dismissProgressDialog();
             }
 
             @Override
             public void onFailure(Call<TabletInformationModel> call, Throwable t) {
                 Log.e(LOG_TAG, " Throwable  " + t);
+                ErrorUtil.handleError(activity, t);
+                dismissProgressDialog();
             }
         });
     }
@@ -149,10 +154,12 @@ public class ChooseActivity extends BaseCompatActivity {
     }
 
     private void http(String location_id) {
+        showProgressDialog();
         Call<List<ChooseModel>> createSessionCall = getKubanApi().getOptionalMeetingRooms(location_id, app_id, app_secret);
         createSessionCall.enqueue(new Callback<List<ChooseModel>>() {
             @Override
             public void onResponse(Call<List<ChooseModel>> call, Response<List<ChooseModel>> response) {
+                dismissProgressDialog();
                 if (null != response.body()) {
                     if (response.body().size() > 0) {
                         chooseModelList.clear();
@@ -179,6 +186,8 @@ public class ChooseActivity extends BaseCompatActivity {
             @Override
             public void onFailure(Call<List<ChooseModel>> call, Throwable t) {
                 Log.e(LOG_TAG, call + "onFailure" + t);
+                ErrorUtil.handleError(activity, t);
+                dismissProgressDialog();
             }
         });
     }
