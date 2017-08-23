@@ -41,11 +41,13 @@ public class XWalkViewActivity extends BaseCompatActivity {
         mXwalkView = (XWalkView) findViewById(R.id.xwalkView);
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
         mXwalkView.setUIClient(new MyUIClient(mXwalkView));
-        mXwalkView.load(url, null);
+        mXwalkView.setDrawingCacheEnabled(false);//不使用缓存
         XWalkSettings xWalkSettings = mXwalkView.getSettings();
         if (xWalkSettings != null) {
             xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
         }
+        mXwalkView.load(url, null);
+
     }
 
     @Override
@@ -70,7 +72,7 @@ public class XWalkViewActivity extends BaseCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (mXwalkView != null) {
-            mXwalkView.clearCache(false);
+            mXwalkView.clearCache(true);
             mXwalkView.onDestroy();
         }
     }
