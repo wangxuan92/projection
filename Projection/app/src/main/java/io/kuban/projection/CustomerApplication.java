@@ -109,7 +109,7 @@ public class CustomerApplication extends MyApplication {
     @Override
     public void onTrimMemory(int level) {
         // 程序在内存清理的时候执行
-        restartApp();
+//        restartApp();
         super.onTrimMemory(level);
     }
 
