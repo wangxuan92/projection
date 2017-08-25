@@ -194,15 +194,15 @@ public class ChooseActivity extends BaseCompatActivity {
 
     @OnClick(R.id.btn_back)
     public void back(View view) {
-//        if (is) {
-        ActivityManager.startLogInActivity(ChooseActivity.this, new Intent());
-        finish();
-//        } else {
-//            chooseModelList.clear();
-//            chooseModelList.addAll(CustomerApplication.lListcChooseMode);
-//            adapter.notifyDataSetChanged();
-//            is = true;
-//        }
+        if (isSelectBranch) {
+            ActivityManager.startLogInActivity(ChooseActivity.this, new Intent());
+            finish();
+        } else {
+            chooseModelList.clear();
+            chooseModelList.addAll(CustomerApplication.lListcChooseMode);
+            adapter.notifyDataSetChanged();
+            isSelectBranch = true;
+        }
     }
 
     private class MyAdapter extends BaseAdapter {
