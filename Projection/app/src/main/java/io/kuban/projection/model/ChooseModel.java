@@ -6,5 +6,6 @@ package io.kuban.projection.model;
 public class ChooseModel extends BaseModel {
 
     public String name;
+    public int areas_count;
 
 }

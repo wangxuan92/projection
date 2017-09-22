@@ -7,5 +7,5 @@
     <!--点击时的颜色-->
     <item android:drawable="@drawable/bg_btn_user_login2" android:state_pressed="true" />
     <!-- 默认颜色 -->
-    <item android:drawable="@drawable/bg_btn_user_login" />
+    <item android:drawable="@drawable/bg_btn_transparent" />
 </selector>

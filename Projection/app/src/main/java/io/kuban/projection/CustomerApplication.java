@@ -1,11 +1,9 @@
 package io.kuban.projection;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -14,14 +12,11 @@ import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.facebook.stetho.Stetho;
 
-import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.base.MyApplication;
-import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.util.ACache;
 import io.kuban.projection.util.UserManager;
 
@@ -30,13 +25,10 @@ import io.kuban.projection.util.UserManager;
  */
 
 public class CustomerApplication extends MyApplication {
-    public static final String TABLETINFORMATION = "tablet_information";
-    public static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "kuban";
     public static String mac;// MAC
     public static String device_id; // 设备ID
     public static String model;// 型号
     public static String manufacturer;// 制造商
-    public static List<ChooseModel> lListcChooseMode;
     public static boolean Isexit = false;
     // 用于存放倒计时时间
     public static Map<String, Long> map;
@@ -63,7 +55,7 @@ public class CustomerApplication extends MyApplication {
                 trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
                 build();
         Bugtags.start(BuildConfig.DEBUG ? Constants.BUGTAGS_APP_ID_BETA : Constants.BUGTAGS_APP_ID_LIVE, this, Bugtags.BTGInvocationEventNone, options);
-        Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程  以下用来捕获程序崩溃异常
+//        Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程  以下用来捕获程序崩溃异常
         //----------------保持长亮
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
@@ -80,7 +72,7 @@ public class CustomerApplication extends MyApplication {
         }
         device_id = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-//        device_id = "12314705258332";
+//        device_id = "12dy4dtifh5rty32";
     }
 
     /**
@@ -115,8 +107,11 @@ public class CustomerApplication extends MyApplication {
 
     public void restartApp() {
         if (isRestart) {
-            ActivityManager.toLogInActivity(context, new Intent());
+            ActivityManager.toLogInActivity(context);
         }
     }
 
+    public static String getStringResources(int resources) {
+        return getInstance().getResources().getString(resources);
+    }
 }

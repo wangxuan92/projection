@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_episodes_item_selector"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="6dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="6dp">
 
+    <!--<TextView-->
+    <!--android:id="@+id/number"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:textColor="@color/lightgrey"-->
+    <!--android:textSize="26sp" />-->
 
     <TextView
         android:id="@+id/choose_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:layout_toLeftOf="@+id/choose_number"
+        android:layout_toRightOf="@+id/number"
+        android:textColor="@color/text_color_white_44"
+        android:textSize="26sp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/choose_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/text_color_white_44"
+        android:textSize="24sp" />
+</RelativeLayout>

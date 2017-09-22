@@ -75,7 +75,7 @@ public class SetUpTheActivity extends BaseCompatActivity implements CheckUpdate.
 
                 break;
             case R.id.exit_program:
-                dialog = new InputNameDialog(SetUpTheActivity.this);
+                dialog = new InputNameDialog(SetUpTheActivity.this, "是否退出应用");
                 dialog.setOnPositiveListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

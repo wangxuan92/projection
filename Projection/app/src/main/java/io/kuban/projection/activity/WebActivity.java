@@ -275,11 +275,12 @@ public class WebActivity extends BaseCompatActivity implements CustomDialog.Gain
 
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         if (!isAppOnForeground() && CustomerApplication.isRestart) {
-            ActivityManager.toLogInActivity(this, new Intent());
+            ActivityManager.toLogInActivity(this);
         }
     }
 

@@ -14,6 +14,23 @@
     <string name="version_update">发现最新版本，邀您体验</string>
     <string name="down_apk">正在下载最新版本</string>
     <string name="updated">已经是最新版了</string>
+    <string name="determine">确定</string>
     <string name="cancel">取消</string>
-
+    <string name="url_prompt">是否保存网址修改</string>
+    <string name="url_not_empty">网址不能为空</string>
+    <string name="url_not_error">网址格式错误</string>
+    <string name="no_optional_conference_room">没有可选会议室</string>
+    <string name="query_data_error">查询平板信息数据错误</string>
+    <string name="query_data_failure">查询平板信息失败请重新选择会议室</string>
+    <string name="no_binding_meeting_room">没有绑定会议室请先绑定会议室</string>
+    <string name="save_url">保存</string>
+    <string name="editor_url">编辑</string>
+    <string name="location">分店</string>
+    <string name="meeting_room">会议室</string>
+    <string name="domain_name_set_up_the">域名设置</string>
+    <string name="set_up_the">设置</string>
+    <string name="enter_home_page">进入</string>
+    <string name="the_current_meeting_room">当前会议室：</string>
+    <string name="change">修改会议室</string>
+    <string name="no_new_version">没有新版本下载地址</string>
 </resources>

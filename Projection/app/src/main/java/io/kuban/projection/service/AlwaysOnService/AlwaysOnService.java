@@ -53,7 +53,7 @@ public class AlwaysOnService extends BaseService {
             Log.e(LOG_TAG, "run:   "
                     + isAppOnForeground());
             if (!isAppOnForeground()) {
-                ActivityManager.toLogInActivity(getBaseContext(), new Intent());
+                ActivityManager.toLogInActivity(getBaseContext());
             }
         }
 

@@ -28,6 +28,7 @@ import io.kuban.projection.BuildConfig;
 import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.base.CommonHeaderInterceptor;
+import io.kuban.projection.base.Constants;
 import io.kuban.projection.service.KuBanApi;
 import io.kuban.projection.util.ACache;
 import io.kuban.projection.view.LoadingDialog;
@@ -98,6 +99,33 @@ public class BaseCompatActivity extends FragmentActivity {
         if (ld != null) {
             ld.dismiss();
         }
+    }
+
+    public void setAreaId(String areaId,String area_name) {
+        cache.put(Constants.AREA_ID, areaId);
+        cache.put(Constants.AREA_NAME, area_name);
+    }
+
+    public void setServer(String servier) {
+        cache.put(Constants.SERVIER, servier);
+    }
+
+    public void setUrl(String url) {
+        cache.put(Constants.URL, url);
+    }
+
+    protected String getUrl() {
+        return cache.getAsString(Constants.URL);
+    }
+
+    public String getAreaId() {
+        return cache.getAsString(Constants.AREA_ID);
+    }
+    public String getAreaName() {
+        return cache.getAsString(Constants.AREA_NAME);
+    }
+    public String getServer() {
+        return cache.getAsString(Constants.SERVIER);
     }
 
     public void initTitleAndBack(View toolbar, String title) {

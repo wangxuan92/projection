@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_img"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="220dp"
+        android:layout_marginTop="100dp">
 
         <ImageView
             android:layout_width="88dp"
@@ -24,7 +25,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:padding="16dp"
-            android:src="@drawable/icon_delete" />
+            android:src="@drawable/icon_delete"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -37,12 +39,13 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_btn_search"
+            android:background="@drawable/et_bg_btn_selector"
             android:hint="@string/login_phone_num"
             android:maxLength="12"
             android:paddingLeft="16dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:text="vayb0c00"
+            android:textColor="@color/white"
             android:textColorHint="@color/lightgrey"
             android:textSize="14sp" />
 
@@ -51,22 +54,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/phone_num"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:id="@+id/sms_code"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/bg_btn_search"
+                android:background="@drawable/et_bg_btn_selector"
                 android:hint="@string/login_sms_code"
                 android:inputType="number"
                 android:maxLength="12"
                 android:paddingLeft="16dp"
-                android:textColor="@color/black"
+                android:text="150170"
+                android:textColor="@color/white"
                 android:textColorHint="@color/lightgrey"
                 android:textSize="14sp" />
-
 
         </RelativeLayout>
     </RelativeLayout>

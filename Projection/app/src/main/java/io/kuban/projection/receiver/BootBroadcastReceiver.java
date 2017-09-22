@@ -19,6 +19,6 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        ActivityManager.toLogInActivity(context, new Intent());
+        ActivityManager.toLogInActivity(context);
     }
 }

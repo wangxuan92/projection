@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import io.kuban.projection.activity.ChooseActivity;
 import io.kuban.projection.activity.LogInActivity;
+import io.kuban.projection.activity.MainActivity;
 import io.kuban.projection.activity.SetUpTheActivity;
 import io.kuban.projection.activity.WebActivity;
 import io.kuban.projection.activity.XWalkViewActivity;
@@ -16,17 +17,19 @@ import io.kuban.projection.activity.XWalkViewActivity;
  * Created by wangxuan on 16/6/27.
  */
 public class ActivityManager {
-    public static final String URL = "url";
+
+
     public static final String TITLE = "title";
 
     //-----------------------------------------LogInActivity
-    public static void startLogInActivity(Context context, Intent intent) {
+    public static void startLogInActivity(Context context, Intent intent, boolean isJumpBack) {
         intent.setClass(context, LogInActivity.class);
+        intent.putExtra(Constants.IS_JUMP_BACK, isJumpBack);
         context.startActivity(intent);
     }
 
-    public static void toLogInActivity(Context context, Intent intent) {
-        Intent mBootIntent = new Intent(context, LogInActivity.class);
+    public static void toLogInActivity(Context context) {
+        Intent mBootIntent = new Intent(context, MainActivity.class);
         //下面这句话必须加上才能开机自动运行app的界面
         mBootIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mBootIntent);
@@ -34,8 +37,9 @@ public class ActivityManager {
     }
 
     //-----------------------------------------绑定界面
-    public static void startChooseActivity(Context context, Intent intent) {
+    public static void startChooseActivity(Context context, Intent intent, boolean isJumpBack) {
         intent.setClass(context, ChooseActivity.class);
+        intent.putExtra(Constants.IS_JUMP_BACK, isJumpBack);
         context.startActivity(intent);
     }
 
@@ -54,14 +58,14 @@ public class ActivityManager {
     //-----------------------------------------WebActivity
     public static void startWebActivity(Activity activity, Intent intent, String url) {
         intent.setClass(activity, WebActivity.class);
-        intent.putExtra(URL, url);
+        intent.putExtra(Constants.URL, url);
         activity.startActivity(intent);
     }
 
     //-----------------------------------------XWalkViewActivity
     public static void startXWalkViewActivity(Activity activity, Intent intent, String url) {
         intent.setClass(activity, XWalkViewActivity.class);
-        intent.putExtra(URL, url);
+        intent.putExtra(Constants.URL, url);
         activity.startActivity(intent);
     }
 

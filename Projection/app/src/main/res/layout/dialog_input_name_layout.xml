@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="取消" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/negativeButton"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20.0dip"
             android:gravity="center"
-            android:text="退出" />
+            android:text="@string/determine" />
     </LinearLayout>
 
 </LinearLayout>

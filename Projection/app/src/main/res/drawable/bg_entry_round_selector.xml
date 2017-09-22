@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--被选中时的颜色-->
+    <item android:drawable="@drawable/bg_entry_round_green" android:state_selected="true" />
+    <!--获得焦点时的颜色-->
+    <item android:drawable="@drawable/bg_entry_round_green" android:state_focused="true" />
+    <!--点击时的颜色-->
+    <item android:drawable="@drawable/bg_entry_round_green" android:state_pressed="true" />
+    <!-- 默认颜色 -->
+    <item android:drawable="@drawable/bg_entry_round" />
+</selector>

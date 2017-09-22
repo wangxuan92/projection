@@ -2,6 +2,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
     <dimen name="title_bar_height">50dp</dimen>
+    <dimen name="entry_round">20dp</dimen>
+    <dimen name="entry_round_width">0.2dp</dimen>
+    <dimen name="btn_user_login_radius">6dp</dimen>
+
+    <dimen name="list_layout_margin_left">180dp</dimen>
+    <dimen name="list_layout_margin_right">180dp</dimen>
 </resources>

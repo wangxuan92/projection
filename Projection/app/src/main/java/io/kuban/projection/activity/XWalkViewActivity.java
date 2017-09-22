@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.internal.XWalkSettings;
 
-import java.util.List;
-
 import io.kuban.projection.R;
+import io.kuban.projection.base.Constants;
+import io.kuban.projection.event.RefreshEvent;
 
 /**
  * Created by wangxuan on 17/7/27.
@@ -36,7 +37,10 @@ public class XWalkViewActivity extends BaseCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_web_activity);
-        String url = getIntent().getStringExtra("url");
+        EventBus.getDefault().post(new RefreshEvent(Constants.FINISH));
+        String url = cache.getAsString(Constants.URL);
+//        url = "http://10.0.107.209:3015/projector/screensharing.html";
+
         Log.e(LOG_TAG, "url=====" + url);
         mXwalkView = (XWalkView) findViewById(R.id.xwalkView);
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
@@ -47,6 +51,28 @@ public class XWalkViewActivity extends BaseCompatActivity {
             xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
         }
         mXwalkView.load(url, null);
+
+
+//        mXwalkView.getSettings().setBlockNetworkLoads(true);
+//        mXwalkView.setResourceClient(new XWalkResourceClient(mXwalkView) {
+//            @Override
+//            public void onLoadFinished(XWalkView view, String url) {
+//                super.onLoadFinished(view, url);
+//            }
+//
+//            @Override
+//            public void onProgressChanged(XWalkView view, int progressInPercent) {
+//                super.onProgressChanged(view, progressInPercent);
+//                if (progressInPercent >= 100) {
+//                    mXwalkView.getSettings().setBlockNetworkLoads(false);
+//                }
+//            }
+//
+//            @Override
+//            public void onProgressChanged(XWalkViewInternal view, int progressInPercent) {
+//                super.onProgressChanged(view, progressInPercent);
+//            }
+//        });
 
     }
 

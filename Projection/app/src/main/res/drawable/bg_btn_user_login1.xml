@@ -2,8 +2,7 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/login_button_text" />
-    <corners android:radius="5dp"
+    <solid android:color="@color/theme_but_color_50" />
+    <corners android:radius="@dimen/btn_user_login_radius" />
 
-        />
 </shape>

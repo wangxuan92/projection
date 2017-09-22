@@ -2,11 +2,13 @@ package io.kuban.projection.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import io.kuban.projection.R;
 
@@ -17,12 +19,24 @@ import io.kuban.projection.R;
 public class InputNameDialog extends Dialog {
     //    private EditText number;
     private Button positiveButton, negativeButton;
+    private String titleStr;
+    private String negativeStr;
     private Context context;
 
 
-    public InputNameDialog(Context context) {
+    public InputNameDialog(Context context, String title) {
         super(context);
         this.context = context;
+        this.titleStr = title;
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setCustomDialog();
+    }
+
+    public InputNameDialog(Context context, String title, String negativeStr) {
+        super(context);
+        this.context = context;
+        this.titleStr = title;
+        this.negativeStr = negativeStr;
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCustomDialog();
     }
@@ -33,7 +47,11 @@ public class InputNameDialog extends Dialog {
         this.setCancelable(false);// 设置点击屏幕Dialog不消失
         positiveButton = (Button) mView.findViewById(R.id.positiveButton);
         negativeButton = (Button) mView.findViewById(R.id.negativeButton);
-
+        TextView title = (TextView) mView.findViewById(R.id.title);
+        if (!TextUtils.isEmpty(negativeStr)) {
+            negativeButton.setText(negativeStr);
+        }
+        title.setText(titleStr);
         //去掉Activity上面的状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //去掉虚拟按键全屏显示
@@ -75,7 +93,7 @@ public class InputNameDialog extends Dialog {
     }
 
     /**
-     * 登录键监听器
+     * 确定键监听器
      *
      * @param listener
      */

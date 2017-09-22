@@ -1,7 +1,6 @@
 package io.kuban.projection.util;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -29,6 +28,18 @@ public class ErrorUtil {
                 if (response.code() == 401) {
                     EventBus.getDefault().post(new HttpUnauthorizedEvent(activity));
                     return;
+                } else if (response.code() == 422) {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorBody);
+                        String message = jsonObject.getString("device_id");
+                        if (!TextUtils.isEmpty(message)) {
+                            ToastUtils.showShort(activity, message);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        ToastUtils.showShort(activity, "服务器发生错误，请稍后再试");
+                    }
                 }
                 try {
                     String errorBody = response.errorBody().string();
@@ -139,7 +150,7 @@ public class ErrorUtil {
     public static class HttpUnauthorizedEvent {
         public HttpUnauthorizedEvent(Activity activity) {
             UserManager.getRemove();
-            ActivityManager.startLogInActivity(activity, new Intent());
+            ActivityManager.toLogInActivity(activity);
         }
     }
 }

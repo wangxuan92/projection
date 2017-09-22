@@ -8,12 +8,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.model.TabletInformationModel;
 import okhttp3.Call;
@@ -42,10 +44,14 @@ public class CheckUpdate {
         //模拟获取服务器版本
         cache.put(ACache.VERSIONT_YPE_PREF, 0);//是否强制更新
 //        cache.put(ACache.VERSIONT_URL_PREF,"http://weixin.qq.com/cgi-bin/readtemplate?uin=&stype=&promote=&fr=www.baidu.com&lang=zh_CN&ADTAG=&check=false&t=weixin_download_method&sys=android&loc=weixin,android,web,0");
+        if (TextUtils.isEmpty(versionModel.app_download_url)) {
+            Toast.makeText(context, CustomerApplication.getStringResources(R.string.no_new_version), Toast.LENGTH_SHORT).show();
+            return;
+        }
         cache.put(ACache.VERSIONT_URL_PREF, versionModel.app_download_url);
         cache.put(ACache.VERSIONT_TIP_PREF, "发现最新版本，邀您体验");
         cache.put(ACache.APPVERSION_PREF, versionModel.app_version);//服务器版本
-        checkUpdate();//自动检测版本升级
+        checkUpdate(versionModel);//自动检测版本升级
     }
 
     public void setCancel(Cancel cancel) {
@@ -68,12 +74,12 @@ public class CheckUpdate {
     /**
      * 检测版本
      */
-    private void checkUpdate() {
+    private void checkUpdate(TabletInformationModel versionModel) {
 
         int versionType = cache.getAsInteger(ACache.VERSIONT_YPE_PREF);//获取是否强制升级
         final String apkUrl = cache.getAsString(ACache.VERSIONT_URL_PREF);//获取下载地址
 //        final String apkUrl = "http://imtt.dd.qq.com/16891/A17F103DE676F7E48DAC714FAC1B1993.apk?fsname=io.kuban.client_1.0_1.apk&csr=4d5s";//获取下载地址
-        if (UpdateUtil.checkUpdate(context)) {
+        if (UpdateUtil.checkUpdate(context, versionModel.app_version)) {
             if (!TextUtils.isEmpty(apkUrl)) {
                 String updateTipPref = cache.getAsString(ACache.VERSIONT_TIP_PREF);//获取更新介绍
 

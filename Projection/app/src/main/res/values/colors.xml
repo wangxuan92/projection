@@ -8,11 +8,15 @@
     <color name="calendar_bg_color">#1f2228</color>
     <color name="text_color_black_228">#E4E4E4</color>
     <color name="black">#000000</color>
-    <color name="lightgrey">#D3D3D3</color>
+    <color name="lightgrey">#9f9f9f</color>
     <color name="login_button_text">#E33D5D</color>
     <color name="text_color_black_107">#6B6B6B</color>
+    <color name="text_color_white_44">#c7c7c7</color>
     <color name="radioButtonChecked">#ff5a60</color>
     <color name="popup_bg_color_35">#232323</color>
     <color name="popup_bg_color1">#a0000000</color>
     <color name="login_edit_text_line">#D6D6D6</color>
+    <color name="theme_but_color">#008533</color>
+    <color name="theme_but_color_50">#8c008533</color>
+    <color name="theme_but_color_80">#d7008533</color>
 </resources>
