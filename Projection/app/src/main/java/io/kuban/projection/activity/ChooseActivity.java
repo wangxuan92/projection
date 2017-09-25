@@ -394,9 +394,9 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
     @Override
     protected void onResume() {
         super.onResume();
-        if (isUpdateApp) {
-            Bootstrap.startAlwaysOnService(this, "Main");
-        }
+//        if (isUpdateApp) {
+//            Bootstrap.startAlwaysOnService(this, "Main");
+//        }
     }
 
     @Override
@@ -406,8 +406,8 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
 
     @Override
     public void update() {
-        isUpdateApp = true;
-        Bootstrap.stopAlwaysOnService(this);
+//        isUpdateApp = true;
+//        Bootstrap.stopAlwaysOnService(this);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(android.content.Intent.ACTION_VIEW);

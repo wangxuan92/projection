@@ -40,7 +40,7 @@ public class XWalkViewActivity extends BaseCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_web_activity);
         EventBus.getDefault().post(new RefreshEvent(Constants.FINISH));
-        Bootstrap.startAlwaysOnService(this, "Main");
+//        Bootstrap.startAlwaysOnService(this, "Main");
         String url = cache.getAsString(Constants.URL);
 //        url = "http://10.0.107.209:8080/projector/screensharing.html";
 
