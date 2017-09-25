@@ -101,9 +101,13 @@ public class BaseCompatActivity extends FragmentActivity {
         }
     }
 
-    public void setAreaId(String areaId,String area_name) {
+    public void setAreaId(String areaId, String area_name) {
         cache.put(Constants.AREA_ID, areaId);
         cache.put(Constants.AREA_NAME, area_name);
+    }
+
+    public void setAreaId(String areaId) {
+        cache.put(Constants.AREA_ID, areaId);
     }
 
     public void setServer(String servier) {
@@ -121,9 +125,11 @@ public class BaseCompatActivity extends FragmentActivity {
     public String getAreaId() {
         return cache.getAsString(Constants.AREA_ID);
     }
+
     public String getAreaName() {
         return cache.getAsString(Constants.AREA_NAME);
     }
+
     public String getServer() {
         return cache.getAsString(Constants.SERVIER);
     }

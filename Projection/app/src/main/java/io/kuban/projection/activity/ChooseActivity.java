@@ -35,6 +35,7 @@ import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.model.TabletInformationModel;
+import io.kuban.projection.service.AlwaysOnService.Bootstrap;
 import io.kuban.projection.util.CheckUpdate;
 import io.kuban.projection.util.ErrorUtil;
 import io.kuban.projection.util.ToastUtils;
@@ -74,6 +75,7 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
     TextView areaName;
 
     private List<ChooseModel> chooseModelList = new ArrayList<>();
+    private boolean isUpdateApp = false;
     private String app_id;
     private String app_secret;
     private MyAdapter adapter;
@@ -144,6 +146,7 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
         queries.put("area_id", meeting_rooms_id);
         queries.put("location_id", location_id);
         queries.put("device_name", device_name);
+        queries.put("device_type", Constants.SHARE);
         queries.put("device_id", CustomerApplication.device_id);
         Call<TabletInformationModel> announcementsCall = getKubanApi().sendRecordTabletInformation(app_id, app_secret, queries);
         announcementsCall.enqueue(new Callback<TabletInformationModel>() {
@@ -178,6 +181,7 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
         queries.put("area_id", meeting_rooms_id);
         queries.put("location_id", location_id);
         queries.put("device_name", device_name);
+        queries.put("device_type", Constants.SHARE);
         queries.put("device_id", CustomerApplication.device_id);
         Call<TabletInformationModel> announcementsCall = getKubanApi().updateTabletInformation(CustomerApplication.device_id, app_id, app_secret, queries);
         announcementsCall.enqueue(new Callback<TabletInformationModel>() {
@@ -215,7 +219,8 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
                 if (response.isSuccessful()) {
                     if (!TextUtils.isEmpty(response.body().id)) {
                         tabletInformationModel = response.body();
-                        setAreaName(tabletInformationModel.area_name);
+                        updateAreaName(tabletInformationModel.area_name);
+                        setAreaId(tabletInformationModel.area_id, tabletInformationModel.area_name);
                         if (UpdateUtil.checkUpdate(activity, tabletInformationModel.app_version)) {
                             prompt.setVisibility(View.VISIBLE);
                         } else {
@@ -236,11 +241,11 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
 
     private void recordData(TabletInformationModel tabletInformationModel) {
         setAreaId(tabletInformationModel.area_id, tabletInformationModel.area_name);
-        setAreaName(tabletInformationModel.area_name);
+        updateAreaName(tabletInformationModel.area_name);
         setVisibility(false);
     }
 
-    private void setAreaName(String name) {
+    private void updateAreaName(String name) {
         areaName.setText(CustomerApplication.getStringResources(R.string.the_current_meeting_room) + name);
     }
 
@@ -387,12 +392,22 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (isUpdateApp) {
+            Bootstrap.startAlwaysOnService(this, "Main");
+        }
+    }
+
+    @Override
     public void updateFinish() {
         finish();
     }
 
     @Override
     public void update() {
+        isUpdateApp = true;
+        Bootstrap.stopAlwaysOnService(this);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(android.content.Intent.ACTION_VIEW);

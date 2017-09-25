@@ -55,7 +55,7 @@ public class CustomerApplication extends MyApplication {
                 trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
                 build();
         Bugtags.start(BuildConfig.DEBUG ? Constants.BUGTAGS_APP_ID_BETA : Constants.BUGTAGS_APP_ID_LIVE, this, Bugtags.BTGInvocationEventNone, options);
-//        Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程  以下用来捕获程序崩溃异常
+        Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程  以下用来捕获程序崩溃异常
         //----------------保持长亮
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
@@ -72,7 +72,7 @@ public class CustomerApplication extends MyApplication {
         }
         device_id = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-//        device_id = "12dy4dtifh5rty32";
+//        device_id = "12f143f1e23d";
     }
 
     /**

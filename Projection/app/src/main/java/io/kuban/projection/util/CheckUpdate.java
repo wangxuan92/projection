@@ -42,7 +42,7 @@ public class CheckUpdate {
         this.context = context;
         cache = ACache.get(context);
         //模拟获取服务器版本
-        cache.put(ACache.VERSIONT_YPE_PREF, 0);//是否强制更新
+        cache.put(ACache.VERSIONT_YPE_PREF, versionModel.force_update);//是否强制更新
 //        cache.put(ACache.VERSIONT_URL_PREF,"http://weixin.qq.com/cgi-bin/readtemplate?uin=&stype=&promote=&fr=www.baidu.com&lang=zh_CN&ADTAG=&check=false&t=weixin_download_method&sys=android&loc=weixin,android,web,0");
         if (TextUtils.isEmpty(versionModel.app_download_url)) {
             Toast.makeText(context, CustomerApplication.getStringResources(R.string.no_new_version), Toast.LENGTH_SHORT).show();
@@ -76,40 +76,15 @@ public class CheckUpdate {
      */
     private void checkUpdate(TabletInformationModel versionModel) {
 
-        int versionType = cache.getAsInteger(ACache.VERSIONT_YPE_PREF);//获取是否强制升级
+        boolean versionType = cache.getAsBoolean(ACache.VERSIONT_YPE_PREF);//获取是否强制升级
         final String apkUrl = cache.getAsString(ACache.VERSIONT_URL_PREF);//获取下载地址
 //        final String apkUrl = "http://imtt.dd.qq.com/16891/A17F103DE676F7E48DAC714FAC1B1993.apk?fsname=io.kuban.client_1.0_1.apk&csr=4d5s";//获取下载地址
         if (UpdateUtil.checkUpdate(context, versionModel.app_version)) {
             if (!TextUtils.isEmpty(apkUrl)) {
                 String updateTipPref = cache.getAsString(ACache.VERSIONT_TIP_PREF);//获取更新介绍
 
-                if (versionType == 0) //非强制
+                if (versionType) //强制
                 {
-//                    DialogUtil.AlertDialog(context, TextUtils.isEmpty(updateTipPref) ? context.getString(R.string.version_update) : updateTipPref, new DialogUtil.DialogUtilOnclickListener() {
-//                        @Override
-//                        public void onClick() {
-//                    downFile(apkUrl, Setting.getAppversionPref(context) + APK_FILENAME);
-//                        }
-//                    }, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage(TextUtils.isEmpty(updateTipPref) ? context.getString(R.string.version_update) : updateTipPref);
-                    builder.setPositiveButton(R.string.new_confirm, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            downFile(apkUrl, APK_FILENAME);
-                            dialog.dismiss();
-//                            User.saveUserFirstPref(MainActivity.this, true);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.cancle_refresh, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-
-                } else {//强制
 //                    DialogUtil.AlertDialogWithCancle(context, TextUtils.isEmpty(updateTipPref) ? context.getString(R.string.version_update) : updateTipPref, new DialogUtil.DialogUtilOnclickListener() {
 //                        @Override
 //                        public void onClick() {
@@ -138,6 +113,32 @@ public class CheckUpdate {
                             if (cancel != null) {
                                 cancel.updateFinish();
                             }
+                        }
+                    });
+                    builder.show();
+
+
+                } else {//非强制
+//                      DialogUtil.AlertDialog(context, TextUtils.isEmpty(updateTipPref) ? context.getString(R.string.version_update) : updateTipPref, new DialogUtil.DialogUtilOnclickListener() {
+                    //                        @Override
+//                        public void onClick() {
+//                    downFile(apkUrl, Setting.getAppversionPref(context) + APK_FILENAME);
+//                        }
+//                    }, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(TextUtils.isEmpty(updateTipPref) ? context.getString(R.string.version_update) : updateTipPref);
+                    builder.setPositiveButton(R.string.new_confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            downFile(apkUrl, APK_FILENAME);
+                            dialog.dismiss();
+//                            User.saveUserFirstPref(MainActivity.this, true);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancle_refresh, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
                     });
                     builder.show();

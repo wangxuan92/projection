@@ -32,6 +32,7 @@ public class TabletInformationModel extends BaseModel {
     public String space_name;
     public String location_name;
     public String area_name;
+    public boolean force_update;
     public String app_version;
     public String app_download_url;
     /**

@@ -22,6 +22,8 @@ public class Constants {
     public static final String SERVIER = "server";
     public static final String DEVICE_INFO = "device_info";
     public static final String FINISH = "finish";
+    public static final String SHARE = "share";
+
 
 
     public static final String CHOOSE_SOURCE = "choose_source";

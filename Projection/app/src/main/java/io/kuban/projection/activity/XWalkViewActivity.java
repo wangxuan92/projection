@@ -3,6 +3,7 @@ package io.kuban.projection.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xwalk.core.XWalkResourceClient;
@@ -13,6 +14,7 @@ import org.xwalk.core.internal.XWalkSettings;
 import io.kuban.projection.R;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.event.RefreshEvent;
+import io.kuban.projection.service.AlwaysOnService.Bootstrap;
 
 /**
  * Created by wangxuan on 17/7/27.
@@ -38,14 +40,16 @@ public class XWalkViewActivity extends BaseCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_web_activity);
         EventBus.getDefault().post(new RefreshEvent(Constants.FINISH));
+        Bootstrap.startAlwaysOnService(this, "Main");
         String url = cache.getAsString(Constants.URL);
-//        url = "http://10.0.107.209:3015/projector/screensharing.html";
+//        url = "http://10.0.107.209:8080/projector/screensharing.html";
 
         Log.e(LOG_TAG, "url=====" + url);
         mXwalkView = (XWalkView) findViewById(R.id.xwalkView);
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
         mXwalkView.setUIClient(new MyUIClient(mXwalkView));
         mXwalkView.setDrawingCacheEnabled(false);//不使用缓存
+        mXwalkView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
         XWalkSettings xWalkSettings = mXwalkView.getSettings();
         if (xWalkSettings != null) {
             xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
