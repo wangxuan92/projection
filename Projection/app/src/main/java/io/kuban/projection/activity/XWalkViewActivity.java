@@ -49,10 +49,10 @@ public class XWalkViewActivity extends BaseCompatActivity {
         mXwalkView.setResourceClient(new MyResourceClient(mXwalkView));
         mXwalkView.setUIClient(new MyUIClient(mXwalkView));
         mXwalkView.setDrawingCacheEnabled(false);//不使用缓存
-        mXwalkView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
         XWalkSettings xWalkSettings = mXwalkView.getSettings();
         if (xWalkSettings != null) {
             xWalkSettings.setAppCacheEnabled(false); //设置为可以缓存
+            xWalkSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
         }
         mXwalkView.load(url, null);
 

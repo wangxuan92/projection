@@ -44,7 +44,7 @@ public class MainActivity extends BaseCompatActivity {
             setServer(BuildConfig.SERVIER);
             setUrl(Utils.saveUrl(getServer(), getAreaId()));
         }
-        Log.e("================   ", "url  " + url);
+        Log.e("================   ", "url  " + Utils.saveUrl(getServer(), getAreaId()));
     }
 
 

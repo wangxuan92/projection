@@ -18,7 +18,8 @@ android {
 //        }
         buildConfigField "String", "BASE_URL", "\"https://api.kuban.io/managements/v1/\""
 //        buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
-        buildConfigField "String", "SERVIER", "\"dev.kuban.io\""
+        buildConfigField "String", "SERVIER", "\"projector.kuban.io\""
+//        buildConfigField "String", "SERVIER", "\"projector.kuban.io\""//惠州项目
 
     }
 
