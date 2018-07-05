@@ -200,7 +200,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
 
     public void setRtcEngine() {
         rtcEngine.setChannelProfile(1);
-        //rtcEngine.setClientRole(this.state.role);
+        rtcEngine.setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
 //        设置音质
         rtcEngine.setAudioProfile(5, 2);
 //        该方法设定外放(扬声器)最小为 0，最大为 255
@@ -212,7 +212,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         rtcEngine.enableWebSdkInteroperability(true);
         rtcEngine.enableAudioVolumeIndication(1000, 3);
         //设置视频分辨率
-        rtcEngine.setVideoProfile(io.agora.rtc.Constants.VIDEO_PROFILE_1080P, true);
+        rtcEngine.setVideoProfile(io.agora.rtc.Constants.VIDEO_PROFILE_720P_6, true);
     }
 
     public boolean checkSelfPermission(String permission, int requestCode) {
