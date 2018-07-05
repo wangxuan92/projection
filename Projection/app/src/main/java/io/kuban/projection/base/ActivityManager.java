@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import io.kuban.projection.activity.AgoraScreenSharingActivity;
 import io.kuban.projection.activity.ChooseActivity;
 import io.kuban.projection.activity.LogInActivity;
 import io.kuban.projection.activity.MainActivity;
@@ -68,5 +69,9 @@ public class ActivityManager {
         intent.putExtra(Constants.URL, url);
         activity.startActivity(intent);
     }
-
+    public static void startAgoraScreenSharingActivity(Activity activity, Intent intent, String url) {
+        intent.setClass(activity, AgoraScreenSharingActivity.class);
+        intent.putExtra(Constants.URL, url);
+        activity.startActivity(intent);
+    }
 }

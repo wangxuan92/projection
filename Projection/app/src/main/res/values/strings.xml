@@ -33,4 +33,6 @@
     <string name="the_current_meeting_room">当前会议室：</string>
     <string name="change">修改会议室</string>
     <string name="no_new_version">没有新版本下载地址</string>
+    <string name="channel_name">请输入投屏码</string>
+
 </resources>

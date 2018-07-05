@@ -56,7 +56,8 @@ public class MainActivity extends BaseCompatActivity {
                 break;
             case R.id.enter_home_page:
                 if (!TextUtils.isEmpty(getAreaId())) {
-                    ActivityManager.startXWalkViewActivity(this, new Intent(), url);
+//                    ActivityManager.startXWalkViewActivity(this, new Intent(), url);
+                    ActivityManager.startAgoraScreenSharingActivity(this, new Intent(), url);
                     finish();
                 } else {
                     ActivityManager.startLogInActivity(this, new Intent(), false);
