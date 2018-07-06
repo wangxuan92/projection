@@ -1,13 +1,9 @@
 package io.kuban.projection.activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -43,7 +39,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
     public SurfaceView surfaceView;
     public String LOG_TAG = "AgoraScreen";
     public int validateCode;
-    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
+
     private static final int SHOW_VIDEO = 123;
     private static final int HIDE_VIDEO = 124;
     public RtcEngine rtcEngine = null;
@@ -54,9 +50,6 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         setContentView(R.layout.agora_screen_sharing_activity);
         ButterKnife.bind(this);
         EventBus.getDefault().post(new RefreshEvent(Constants.FINISH));
-        if (!checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)) {
-            return;
-        }
         if (container.getChildCount() >= 1) {
             return;
         }
@@ -214,18 +207,4 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         //设置视频分辨率
         rtcEngine.setVideoProfile(io.agora.rtc.Constants.VIDEO_PROFILE_720P_6, true);
     }
-
-    public boolean checkSelfPermission(String permission, int requestCode) {
-        Log.e(LOG_TAG, "checkSelfPermission " + permission + " " + requestCode);
-        if (ContextCompat.checkSelfPermission(this,
-                permission)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{permission},
-                    requestCode);
-            return false;
-        }
-        return true;
-    }
-
 }

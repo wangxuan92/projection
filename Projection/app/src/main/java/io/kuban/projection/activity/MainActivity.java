@@ -1,8 +1,12 @@
 package io.kuban.projection.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +30,7 @@ import io.kuban.projection.util.Utils;
 public class MainActivity extends BaseCompatActivity {
 
     private String url = "";
+    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +55,9 @@ public class MainActivity extends BaseCompatActivity {
 
     @OnClick({R.id.select_settings, R.id.enter_home_page})
     public void click(View view) {
+        if (!checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)||!checkSelfPermission(Manifest.permission.MODIFY_AUDIO_SETTINGS, PERMISSION_REQ_ID_RECORD_AUDIO)) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.select_settings:
                 ActivityManager.startLogInActivity(this, new Intent(), true);
@@ -79,4 +87,18 @@ public class MainActivity extends BaseCompatActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    public boolean checkSelfPermission(String permission, int requestCode) {
+        Log.e(LOG_TAG, "checkSelfPermission " + permission + " " + requestCode);
+        if (ContextCompat.checkSelfPermission(this,
+                permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{permission},
+                    requestCode);
+            return false;
+        }
+        return true;
+    }
+
 }
