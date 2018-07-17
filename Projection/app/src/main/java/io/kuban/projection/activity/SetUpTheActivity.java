@@ -1,16 +1,11 @@
 package io.kuban.projection.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,7 +109,7 @@ public class SetUpTheActivity extends BaseCompatActivity implements CheckUpdate.
                 if (null != response.body()) {
                     if (!TextUtils.isEmpty(response.body().id)) {
                         tabletInformationModel = response.body();
-                        if (UpdateUtil.checkUpdate(SetUpTheActivity.this, tabletInformationModel.app_version)) {
+                        if (UpdateUtil.checkUpdate(SetUpTheActivity.this)) {
                             prompt.setVisibility(View.VISIBLE);
                             shoVersion.setText("可升级版本:" + tabletInformationModel.app_version);
                         } else {
@@ -144,12 +139,12 @@ public class SetUpTheActivity extends BaseCompatActivity implements CheckUpdate.
 
     @Override
     public void update() {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), CheckUpdate.APK_FILENAME)),
-                "application/vnd.android.package-archive");
-        startActivity(intent);
+//        Intent intent = new Intent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setAction(android.content.Intent.ACTION_VIEW);
+//        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), CheckUpdate.APK_FILENAME)),
+//                "application/vnd.android.package-archive");
+//        startActivity(intent);
 
 //        Intent intent = new Intent(Intent.ACTION_VIEW);
 //        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), CheckUpdate.APK_FILENAME)),

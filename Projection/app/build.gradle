@@ -105,6 +105,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':CrosswalkLibrary')
+    compile 'com.yanzhenjie:permission:1.0.4'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     configurations.all*.exclude module: 'jsr305'
 }

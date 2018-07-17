@@ -34,6 +34,8 @@ public class TabletInformationModel extends BaseModel {
     public String area_name;
     public boolean force_update;
     public String app_version;
+    public String version;
+    public String android_update_url;
     public String app_download_url;
     /**
      * url : 缺省URL

@@ -12,11 +12,13 @@ import android.util.Log;
  */
 public class UpdateUtil {
 
+
     private static final String TAG = "update";
 
-    public static boolean checkUpdate(Context context, String server) {
+    public static boolean checkUpdate(Context context) {
         int versionCode = getVersionCode(context);
         String versionName = getVersionName(context);
+        String server = ACache.get(context).getAsString(ACache.APPVERSION_PREF);
         Log.e("versionName", versionName + "    " + server);
         String[] server1 = server.split("\\.");
         String[] local = versionName.split("\\.");
@@ -47,7 +49,7 @@ public class UpdateUtil {
             } catch (Exception e) {
                 //Ignore
             }
-        } else if (server1.length > local.length) {
+        }else if (server1.length > local.length) {
             try {
                 for (int i = 0; i < local.length; i++) {
 
@@ -62,6 +64,33 @@ public class UpdateUtil {
             }
             return true;
         }
+
+
+//        if (server1.length == 3 && local.length == 3) {
+//            try {
+//                if (Integer.valueOf(server1[0]) > Integer.valueOf(local[0])) {
+//                    return true;
+//                } else if (Integer.valueOf(server1[1]) > Integer.valueOf(local[1])) {
+//                    return true;
+//                } else if (Integer.valueOf(server1[2]) > Integer.valueOf(local[2])) {
+//                    return true;
+//                }
+//
+//            } catch (Exception e) {
+//                //Ignore
+//            }
+//        }
+//        for (String d : server1) {
+//        }
+
+//        int serverVersionCode = ACache.get(context).getAsInteger(ACache.APPVERSION_PREF);
+//        try {
+//            result = serverVersionCode > versionCode;
+//        } catch (Exception e) {
+//            //Ignore
+//            L.e(TAG, e.toString());
+//        }
+
         return false;
     }
 
@@ -89,5 +118,7 @@ public class UpdateUtil {
         }
         return result;
     }
+
+
 
 }

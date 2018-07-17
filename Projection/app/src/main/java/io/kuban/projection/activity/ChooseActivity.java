@@ -3,9 +3,11 @@ package io.kuban.projection.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -29,13 +31,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.kuban.projection.BuildConfig;
 import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.model.ChooseModel;
 import io.kuban.projection.model.TabletInformationModel;
-import io.kuban.projection.service.AlwaysOnService.Bootstrap;
 import io.kuban.projection.util.CheckUpdate;
 import io.kuban.projection.util.ErrorUtil;
 import io.kuban.projection.util.ToastUtils;
@@ -221,7 +223,7 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
                         tabletInformationModel = response.body();
                         updateAreaName(tabletInformationModel.area_name);
                         setAreaId(tabletInformationModel.area_id, tabletInformationModel.area_name);
-                        if (UpdateUtil.checkUpdate(activity, tabletInformationModel.app_version)) {
+                        if (UpdateUtil.checkUpdate(activity)) {
                             prompt.setVisibility(View.VISIBLE);
                         } else {
                             prompt.setVisibility(View.GONE);
@@ -409,11 +411,26 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
     public void update() {
 //        isUpdateApp = true;
 //        Bootstrap.stopAlwaysOnService(this);
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), CheckUpdate.APK_FILENAME)),
-                "application/vnd.android.package-archive");
+
+//        Intent intent = new Intent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setAction(android.content.Intent.ACTION_VIEW);
+//        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), CheckUpdate.APK_FILENAME)),
+//                "application/vnd.android.package-archive");
+//        startActivity(intent);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        //判断是否是AndroidN以及更高的版本
+        if (Build.VERSION.SDK_INT >= 24) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileProvider", new File(Environment.getExternalStorageDirectory(),
+                    (CustomerApplication.getStringResources(R.string.app_name) + ".apk")));
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                            (CustomerApplication.getStringResources(R.string.app_name) + ".apk"))),
+                    "application/vnd.android.package-archive");
+        }
         startActivity(intent);
     }
 

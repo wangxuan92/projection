@@ -72,7 +72,7 @@ public class CustomerApplication extends MyApplication {
         }
         device_id = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-//        device_id = "12f143f1e23d";
+//        device_id = "12f143f1ee23d";
     }
 
     /**

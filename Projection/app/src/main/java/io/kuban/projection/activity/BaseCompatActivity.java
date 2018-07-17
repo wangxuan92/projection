@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
@@ -44,6 +45,8 @@ public class BaseCompatActivity extends FragmentActivity {
     public ACache cache;
     public String LOG_TAG;
     public Activity activity;
+    private PowerManager powerManager = null;
+    private PowerManager.WakeLock wakeLock = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class BaseCompatActivity extends FragmentActivity {
             setStatusBarUpperAPI19();
         }
         cache = ACache.get(this);
+        powerManager = (PowerManager) this.getSystemService(this.POWER_SERVICE);
+        wakeLock = this.powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Lock");
 //        prefStore = SecuredPreferenceStore.getSharedInstance(this);
         ld = new LoadingDialog(this);
         LogUtil.e(this.getClass().getSimpleName(), "######################" + this.getClass().getSimpleName() + "###################");
@@ -387,6 +392,7 @@ public class BaseCompatActivity extends FragmentActivity {
         super.onResume();
         //注：回调 1
         Bugtags.onResume(this);
+        wakeLock.acquire();
     }
 
     @Override
@@ -394,6 +400,7 @@ public class BaseCompatActivity extends FragmentActivity {
         super.onPause();
         //注：回调 2
         Bugtags.onPause(this);
+        wakeLock.release();
     }
 
     @Override
