@@ -199,7 +199,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         rtcEngine.setAudioProfile(5, 2);
         rtcEngine.stopAudioRecording();
         rtcEngine.stopPlayingStream();
-        rtcEngine.stopEchoTest();
+//        rtcEngine.stopEchoTest();
         rtcEngine.disableAudio();//关闭Audio
 //        该方法设定外放(扬声器)最小为 0，最大为 255
         rtcEngine.setSpeakerphoneVolume(30);
