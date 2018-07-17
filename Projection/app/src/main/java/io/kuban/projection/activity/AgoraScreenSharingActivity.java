@@ -58,6 +58,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         initRtcEngine();
         setRtcEngine();
         generateCode();
+        Log.e("====================   ", "  eeeeeeeee ");
     }
 
     //在主线程创建一个Handler对象。
@@ -193,9 +194,13 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
 
     public void setRtcEngine() {
         rtcEngine.setChannelProfile(1);
-        rtcEngine.setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
+        rtcEngine.setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
 //        设置音质
         rtcEngine.setAudioProfile(5, 2);
+        rtcEngine.stopAudioRecording();
+        rtcEngine.stopPlayingStream();
+        rtcEngine.stopEchoTest();
+        rtcEngine.disableAudio();//关闭Audio
 //        该方法设定外放(扬声器)最小为 0，最大为 255
         rtcEngine.setSpeakerphoneVolume(30);
         //打开视频模式
