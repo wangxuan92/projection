@@ -38,7 +38,11 @@ android {
             storePassword 'projection123456'
         }
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     buildTypes {
         release {
             // 显示Log
@@ -108,4 +112,5 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.4'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     configurations.all*.exclude module: 'jsr305'
+    compile files('libs/agora-sig-sdk.jar')
 }

@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Base64;
 import android.util.Log;
 
 import com.bugtags.library.Bugtags;
@@ -14,6 +15,7 @@ import com.facebook.stetho.Stetho;
 
 import java.util.Map;
 
+import io.agora.AgoraAPIOnlySignal;
 import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
 import io.kuban.projection.base.MyApplication;
@@ -35,6 +37,9 @@ public class CustomerApplication extends MyApplication {
     public static Context context;
     public static boolean isRestart;
     public ACache cache;//存储数据
+    private AgoraAPIOnlySignal m_agoraAPI;
+    public static String appID;
+    private static CustomerApplication mInstance;
 
     @Override
     public void onCreate() {
@@ -43,10 +48,12 @@ public class CustomerApplication extends MyApplication {
         cache = ACache.get(this);
         context = this;
         isRestart = true;
+        mInstance = this;
+        appID = new String(Base64.decode(Constants.APP_ID.getBytes(), Base64.DEFAULT));
         UserManager.init(this);
         obtainMAC();
         obtainMessage();
-
+        setupAgoraEngine();
         BugtagsOptions options = new BugtagsOptions.Builder().
                 trackingLocation(false).//是否获取位置，默认 true
                 trackingCrashLog(true).//是否收集crash，默认 true
@@ -84,6 +91,19 @@ public class CustomerApplication extends MyApplication {
         manufacturer = bd.MANUFACTURER;
     }
 
+    public AgoraAPIOnlySignal getmAgoraAPI() {
+        return m_agoraAPI;
+    }
+
+    private void setupAgoraEngine() {
+        try {
+            m_agoraAPI = AgoraAPIOnlySignal.getInstance(this, appID);
+        } catch (Exception e) {
+//            Log.e(TAG, Log.getStackTraceString(e));
+            throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
+        }
+    }
+
     // 创建服务用于捕获崩溃异常
     private Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
         public void uncaughtException(Thread thread, Throwable ex) {
@@ -113,5 +133,10 @@ public class CustomerApplication extends MyApplication {
 
     public static String getStringResources(int resources) {
         return getInstance().getResources().getString(resources);
+    }
+
+
+    public static CustomerApplication getCustomerApplication() {
+        return mInstance;
     }
 }

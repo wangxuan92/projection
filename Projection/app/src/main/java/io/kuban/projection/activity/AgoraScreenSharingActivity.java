@@ -17,7 +17,9 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.agora.AgoraAPI;
 import io.agora.rtc.video.VideoCanvas;
+import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.base.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -55,10 +57,17 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         }
         surfaceView = RtcEngine.CreateRendererView(getBaseContext());
         container.addView(surfaceView);
+        generateCode();
+        addCallback();
         initRtcEngine();
         setRtcEngine();
-        generateCode();
-        Log.e("====================   ", "  eeeeeeeee ");
+
+//        rlChannelName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CustomerApplication.getCustomerApplication().getmAgoraAPI().messageInstantSend("123456", 0, "2323dffssafdsfs", "");
+//            }
+//        });
     }
 
     //在主线程创建一个Handler对象。
@@ -80,17 +89,19 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
     };
 
     public void generateCode() {
+        CustomerApplication.getCustomerApplication().getmAgoraAPI().logout();
         rlChannelName.setVisibility(View.VISIBLE);
         validateCode = (int) ((Math.random() * 9 + 1) * 100000);
+        CustomerApplication.getCustomerApplication().getmAgoraAPI().login2(CustomerApplication.appID, validateCode + "", "_no_need_token", 0, "", 30, 5);
         channelName.setText(validateCode + "");
         //加入频道
-        rtcEngine.joinChannel(null, validateCode + "", null, Calendar.getInstance().get(Calendar.DATE));
+//        rtcEngine.joinChannel(null, "303422", null, Calendar.getInstance().get(Calendar.DATE));
     }
 
     public void initRtcEngine() {
         //创建 RtcEngine 对象,并填入 App ID
         try {
-            rtcEngine = RtcEngine.create(this, "4cb88453960c4ea2b8d772d6ef323f34", new IRtcEngineEventHandler() {
+            rtcEngine = RtcEngine.create(this, CustomerApplication.appID, new IRtcEngineEventHandler() {
                 @Override
                 public void onWarning(int warn) {
                     super.onWarning(warn);
@@ -193,7 +204,7 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
     }
 
     public void setRtcEngine() {
-        rtcEngine.setChannelProfile(1);
+        rtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         rtcEngine.setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
 //        设置音质
         rtcEngine.setAudioProfile(5, 2);
@@ -211,5 +222,79 @@ public class AgoraScreenSharingActivity extends BaseCompatActivity {
         rtcEngine.enableAudioVolumeIndication(1000, 3);
         //设置视频分辨率
         rtcEngine.setVideoProfile(io.agora.rtc.Constants.VIDEO_PROFILE_720P_6, true);
+    }
+
+    private void addCallback() {
+
+        CustomerApplication.getCustomerApplication().getmAgoraAPI().callbackSet(new AgoraAPI.CallBack() {
+
+            @Override
+            public void onLoginSuccess(int i, int i1) {
+                Log.e(LOG_TAG, i + " onLoginSuccess " + i1);
+            }
+
+            @Override
+            public void onLoginFailed(final int i) {
+                Log.e(LOG_TAG, "onLoginFailed   " + i + "  ");
+            }
+
+
+            @Override
+            public void onError(String s, int i, String s1) {
+                Log.e(LOG_TAG, "onError s:" + s + " s1:" + s1);
+            }
+
+            @Override
+            public void onChannelJoined(String channelID) {
+                super.onChannelJoined(channelID);
+                Log.e(LOG_TAG, "onChannelJoined :" + channelID);
+            }
+
+            @Override
+            public void onChannelJoinFailed(String channelID, int ecode) {
+                super.onChannelJoinFailed(channelID, ecode);
+                Log.e(LOG_TAG, "channelID:  " + channelID + " ecode:" + ecode);
+            }
+
+            @Override
+            public void onChannelUserList(String[] accounts, final int[] uids) {
+                super.onChannelUserList(accounts, uids);
+
+                Log.e(LOG_TAG, "accounts:  " + accounts + " uids:" + uids);
+
+            }
+
+            @Override
+            public void onLogout(final int i) {
+                Log.e(LOG_TAG, " onLogout " + i);
+
+
+            }
+
+            @Override
+            public void onMessageSendSuccess(String messageID) {
+                super.onMessageSendSuccess(messageID);
+                Log.e(LOG_TAG, " onMessageSendSuccess " + messageID);
+            }
+
+            @Override
+            public void onMessageSendError(String messageID, int ecode) {
+                Log.e(LOG_TAG, "onMessageSendError:  " + ecode + "  " + messageID);
+            }
+
+            @Override
+            public void onInviteAcceptedByPeer(String channelID, String account, int uid, String extra) {
+                super.onInviteAcceptedByPeer(channelID, account, uid, extra);
+                Log.e(LOG_TAG, channelID + " account = " + account + " uid = " + uid + " extra = " + extra);
+
+            }
+
+            @Override
+            public void onMessageInstantReceive(final String account, int uid, final String msg) {
+                Log.e(LOG_TAG, "onMessageInstantReceive  account = " + account + " uid = " + uid + " msg = " + msg);
+//                加入频道
+                rtcEngine.joinChannel(null, msg + "", null, Calendar.getInstance().get(Calendar.DATE));
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import io.kuban.projection.model.ChooseModel;
 public class Constants {
     public static final int ALARM_REPEAT_INTERVAL = 10;
     public static final String STARTUP_ACTION_NAME = "alwayson_startup_action_name";
+    public static final String APP_ID = "NGNiODg0NTM5NjBjNGVhMmI4ZDc3MmQ2ZWYzMjNmMzQ=";
 
     public static List<ChooseModel> lListcChooseMode;// 分店集合
 
