@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yanzhenjie.permission.AndPermission;
 
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.kuban.projection.BuildConfig;
+import io.kuban.projection.CustomerApplication;
 import io.kuban.projection.R;
 import io.kuban.projection.base.ActivityManager;
 import io.kuban.projection.base.Constants;
@@ -42,6 +44,7 @@ public class MainActivity extends BaseCompatActivity {
         EventBus.getDefault().register(this);
         requestAppPermissions();
     }
+
     private void requestAppPermissions() {
         AndPermission.with(this)
                 .requestCode(100)
@@ -66,12 +69,13 @@ public class MainActivity extends BaseCompatActivity {
 
     @OnClick({R.id.select_settings, R.id.enter_home_page})
     public void click(View view) {
-        if (!checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)||!checkSelfPermission(Manifest.permission.MODIFY_AUDIO_SETTINGS, PERMISSION_REQ_ID_RECORD_AUDIO)) {
+        if (!checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO) || !checkSelfPermission(Manifest.permission.MODIFY_AUDIO_SETTINGS, PERMISSION_REQ_ID_RECORD_AUDIO)) {
             return;
         }
         switch (view.getId()) {
             case R.id.select_settings:
                 ActivityManager.startLogInActivity(this, new Intent(), true);
+                Toast.makeText(this, CustomerApplication.device_id, Toast.LENGTH_LONG).show();
                 break;
             case R.id.enter_home_page:
                 if (!TextUtils.isEmpty(getAreaId())) {
