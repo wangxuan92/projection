@@ -75,9 +75,9 @@ public class EquipmentInformationUtil {
 
     //    设备ID
     public static String getDeviceId(Context context) {
-//        return Settings.Secure.getString(context.getContentResolver(),
-//                Settings.Secure.ANDROID_ID);
-        return "erhe3eqtxxfge2dd52grd";
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+//        return "erhe3eqtxxfge2dd52grd";
     }
 
     public static String getDeviceInformation(String returnType) {

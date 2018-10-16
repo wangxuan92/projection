@@ -132,8 +132,8 @@ public class BindingActivity extends BaseCompatActivity {
         queries.put("os_version", EquipmentInformationUtil.getDeviceInformation(EquipmentInformationUtil.RELEASE));
         queries.put("os", "android");
         queries.put("apptype", "meetingroom");
-//        queries.put("subtype", "tv_screen");
-        queries.put("subtype", "meeting_display");
+        queries.put("subtype", "tv_screen");
+//        queries.put("subtype", "meeting_display");
         queries.put("screen_size", EquipmentInformationUtil.getScreenSize(this));
         Call<ToKenModel> createSessionCall = getKubanApi().postRegister(queries);
         createSessionCall.enqueue(new Callback<ToKenModel>() {
