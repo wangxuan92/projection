@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.kuban.projection.model.ChooseModel;
+import io.kuban.projection.model.PadsModel;
 import io.kuban.projection.model.TabletInformationModel;
+import io.kuban.projection.model.ToKenModel;
 import io.kuban.projection.model.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -75,5 +78,18 @@ public interface KuBanApi {
      */
     @GET("meeting_screens/meeting_rooms")
     Call<List<ChooseModel>> getOptionalMeetingRooms(@Query("location_id") String location_id, @Query("app_id") String app_id, @Query("app_secret") String app_secret);
+
+    /**
+     * ----------注册pad-----------------------------
+     */
+    @POST("pads/register")
+    Call<ToKenModel> postRegister(@Body Map<String, String> queries);
+
+    /**
+     * ----------获取pad绑定信息-----------------------------
+     */
+    @GET("pads/{id}")
+    Call<PadsModel> getPads(@Path("id") String id);
+
 
 }

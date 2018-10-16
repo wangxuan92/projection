@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dp_50">
+
+
+        <TextView
+            android:id="@+id/invite_code_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative"
+            android:layout_marginLeft="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_60"
+            android:text="@string/binding_successful"
+            android:textColor="@color/text_color_blue_40"
+            android:textSize="@dimen/sp_52"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invite_code_prompt_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/invite_code_prompt"
+            android:layout_marginLeft="@dimen/dp_60"
+            android:text="@string/binding_successful_hint"
+            android:textColor="@color/text_color_blue_7f"
+            android:textSize="@dimen/sp_20" />
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="@dimen/dp_400"
+            android:layout_height="@dimen/dp_425"
+            android:layout_below="@+id/invite_code_prompt_2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/img_pic_back"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_22">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_209">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view_click"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/but_background_green" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:paddingRight="@dimen/dp_30"
+                android:paddingTop="@dimen/dp_40">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_22">
+
+                    <ImageView
+                        android:id="@+id/phone_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/company_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_toRightOf="@+id/phone_img"
+                        android:text="@string/company_name"
+                        android:textColor="@color/text_color_blue_9c"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:textColor="@color/validation_fails_popwindow_text_color"
+                        android:textSize="@dimen/sp_18" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_40">
+
+                    <ImageView
+                        android:id="@+id/company_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/company_icon" />
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_toRightOf="@+id/company_img"
+                        android:text="@string/location_name"
+                        android:textColor="@color/text_color_blue_9c"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:id="@+id/location_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_70"
+                        android:layout_toRightOf="@+id/text"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:textColor="@color/validation_fails_popwindow_text_color"
+                        android:textSize="@dimen/sp_18" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_30">
+
+            <Button
+                android:id="@+id/open_visitors_system"
+                android:layout_width="@dimen/dp_237"
+                android:layout_height="@dimen/dp_52"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_selector"
+                android:text="@string/open_visitors_system"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_20" />
+
+
+            <TextView
+                android:id="@+id/again_match"
+                android:layout_width="@dimen/dp_237"
+                android:layout_height="@dimen/dp_52"
+                android:layout_below="@+id/open_visitors_system"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:background="@drawable/bg_btn_border_selector"
+                android:gravity="center"
+                android:text="@string/again_match"
+                android:textColor="@color/button_text_pressed_white_selector"
+                android:textSize="@dimen/sp_20"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -80,7 +80,7 @@ public class MainActivity extends BaseCompatActivity {
             case R.id.enter_home_page:
                 if (!TextUtils.isEmpty(getAreaId())) {
 //                    ActivityManager.startXWalkViewActivity(this, new Intent(), url);
-                    ActivityManager.startAgoraScreenSharingActivity(this, new Intent(), url);
+                    ActivityManager.startAgoraScreenSharingActivity(this, new Intent());
                     finish();
                 } else {
                     ActivityManager.startLogInActivity(this, new Intent(), false);

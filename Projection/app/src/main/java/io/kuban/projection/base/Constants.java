@@ -24,9 +24,10 @@ public class Constants {
     public static final String DEVICE_INFO = "device_info";
     public static final String FINISH = "finish";
     public static final String SHARE = "share";
-
-
-
+    public static final String TO_KEN = "token";
+    public static final String APP_PASSWORD = "app_password";
+    public static final String PADS_MODEL = "PadsModel";
+    public static final String IS_CAN_RETURN = "is_can_return";
     public static final String CHOOSE_SOURCE = "choose_source";
     public static final String QUERY = "query";
     public static final String LOGIN = "login";

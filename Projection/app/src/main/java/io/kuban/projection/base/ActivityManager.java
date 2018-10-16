@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 
 import io.kuban.projection.activity.AgoraScreenSharingActivity;
+import io.kuban.projection.activity.BindingActivity;
+import io.kuban.projection.activity.BindingSuccessfulActivity;
 import io.kuban.projection.activity.ChooseActivity;
 import io.kuban.projection.activity.LogInActivity;
 import io.kuban.projection.activity.MainActivity;
 import io.kuban.projection.activity.SetUpTheActivity;
 import io.kuban.projection.activity.WebActivity;
 import io.kuban.projection.activity.XWalkViewActivity;
+import io.kuban.projection.model.PadsModel;
 
 
 /**
@@ -22,6 +25,12 @@ public class ActivityManager {
 
     public static final String TITLE = "title";
 
+    //-----------------------------------------MainActivity
+    public static void startMainActivity(Context context, Intent intent) {
+        intent.setClass(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     //-----------------------------------------LogInActivity
     public static void startLogInActivity(Context context, Intent intent, boolean isJumpBack) {
         intent.setClass(context, LogInActivity.class);
@@ -30,7 +39,7 @@ public class ActivityManager {
     }
 
     public static void toLogInActivity(Context context) {
-        Intent mBootIntent = new Intent(context, MainActivity.class);
+        Intent mBootIntent = new Intent(context, BindingActivity.class);
         //下面这句话必须加上才能开机自动运行app的界面
         mBootIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mBootIntent);
@@ -69,9 +78,19 @@ public class ActivityManager {
         intent.putExtra(Constants.URL, url);
         activity.startActivity(intent);
     }
-    public static void startAgoraScreenSharingActivity(Activity activity, Intent intent, String url) {
-        intent.setClass(activity, AgoraScreenSharingActivity.class);
-        intent.putExtra(Constants.URL, url);
+
+    public static void startAgoraScreenSharingActivity(Context context, Intent intent) {
+        intent.setClass(context, AgoraScreenSharingActivity.class);
+        context.startActivity(intent);
+    }
+
+    //-----------------------------------------匹配成功页
+    public static void startBindingSuccessfulActivity(Activity activity, PadsModel padsModel, boolean isCanReturn) {
+        Intent intent = new Intent();
+        intent.setClass(activity, BindingSuccessfulActivity.class);
+        intent.putExtra(Constants.PADS_MODEL, padsModel);
+        intent.putExtra(Constants.IS_CAN_RETURN, isCanReturn);
         activity.startActivity(intent);
     }
+
 }

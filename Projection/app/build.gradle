@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'com.bugtags.library.plugin'
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "io.kuban.projection"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,7 +16,7 @@ android {
 ////            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
 //            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
 //        }
-        buildConfigField "String", "BASE_URL", "\"https://api.kuban.io/managements/v1/\""
+        buildConfigField "String", "BASE_URL", "\"https://api-v2.kuban.io/api/v2/\""
 //        buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
         buildConfigField "String", "SERVIER", "\"projector.kuban.io\""
 //        buildConfigField "String", "SERVIER", "\"projector.kuban.io\""//惠州项目
@@ -57,11 +57,8 @@ android {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
-//            buildConfigField "String", "BASE_URL", "\"https://devapi.kuban.io/managements/v1/\""
-            buildConfigField "String", "BASE_URL", "\"https://api.kuban.io/managements/v1/\""
-
-//            buildConfigField "String", "BASE_URL", "\"https://api-v2.kuban.io/managements/v2/\""
-//            buildConfigField "String", "BASE_URL", "\"https://api.v2-dev.kuban.io/managements/v2/\""
+//         buildConfigField "String", "BASE_URL", "\"https://api.v2-dev.kuban.io/api/v2/\""
+            buildConfigField "String", "BASE_URL", "\"https://api-v2.kuban.io/api/v2/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -109,6 +106,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':CrosswalkLibrary')
+    compile 'com.airbnb.android:lottie:2.2.0'
     compile 'com.yanzhenjie:permission:1.0.4'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     configurations.all*.exclude module: 'jsr305'

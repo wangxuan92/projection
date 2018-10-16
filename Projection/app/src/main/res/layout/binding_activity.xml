@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <io.kuban.projection.view.LetterSpacingTextView
+            android:id="@+id/validate_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:inputType="phone"
+            android:textColor="@color/text_color_blue_31"
+            android:textSize="@dimen/sp_78" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/validate_code"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_18"
+            android:text="@string/binding_hint"
+            android:textSize="@dimen/sp_20" />
+
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="@dimen/dp_237"
+            android:layout_height="@dimen/dp_52"
+            android:layout_below="@+id/validate_code"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_104"
+            android:background="@drawable/bg_btn_border_selector"
+            android:text="@string/again_generate_code"
+            android:textColor="@color/button_text_pressed_white_selector"
+            android:textSize="@dimen/sp_20" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,9 +1,11 @@
 package io.kuban.projection.base;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.io.IOException;
 
+import io.kuban.projection.CustomerApplication;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 
@@ -46,7 +48,9 @@ public class CommonHeaderInterceptor implements Interceptor {
 //            builder.addHeader("Authorization", " Bearer " + mUserManager.getUserToken());
 //        }
 //        builder.addHeader("Authorization", " Bearer " + TEST_TOKEN);
-
+        if (!TextUtils.isEmpty(CustomerApplication.token)) {
+            builder.addHeader("Authorization", " Bearer " + CustomerApplication.token);
+        }
         Request newRequest = builder.build();
         return chain.proceed(newRequest);
     }

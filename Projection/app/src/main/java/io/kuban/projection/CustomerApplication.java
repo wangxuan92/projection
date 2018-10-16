@@ -40,7 +40,9 @@ public class CustomerApplication extends MyApplication {
     private AgoraAPIOnlySignal m_agoraAPI;
     public static String appID;
     private static CustomerApplication mInstance;
-
+    public static String token = "";
+    public static String spaceId = "";
+    public static String locationId = "";
     @Override
     public void onCreate() {
         super.onCreate();

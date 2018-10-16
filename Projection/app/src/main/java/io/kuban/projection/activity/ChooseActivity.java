@@ -306,7 +306,7 @@ public class ChooseActivity extends BaseCompatActivity implements CheckUpdate.Ca
         }
         if (!isJumpBack) {
 //            ActivityManager.startXWalkViewActivity(ChooseActivity.this, new Intent(), getUrl());
-            ActivityManager.startAgoraScreenSharingActivity(ChooseActivity.this, new Intent(), getUrl());
+            ActivityManager.startAgoraScreenSharingActivity(ChooseActivity.this, new Intent());
         }
         setUrl(Utils.saveUrl(getServer(), getAreaId()));
         finish();

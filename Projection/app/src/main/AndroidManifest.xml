@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.BindingActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
@@ -32,7 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".activity.LogInActivity"
             android:screenOrientation="landscape"
@@ -63,6 +67,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".activity.BindingSuccessfulActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
 
         <!--开机广播接受者-->
         <receiver android:name=".receiver.BootBroadcastReceiver">
@@ -80,12 +90,12 @@
             </intent-filter>
         </receiver>
         <!--<receiver android:name=".service.AlwaysOnService.RebootBroadcastReceiver">-->
-            <!--<intent-filter>-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--<intent-filter>-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
 
-                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
-                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
-            <!--</intent-filter>-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
 
         <service android:name=".service.AlwaysOnService.AlwaysOnService" />

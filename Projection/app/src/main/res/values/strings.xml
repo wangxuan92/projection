@@ -34,5 +34,14 @@
     <string name="change">修改会议室</string>
     <string name="no_new_version">没有新版本下载地址</string>
     <string name="channel_name">请输入投屏码</string>
+    <string name="binding_hint">请将上面6位数字输入到管理后台的平板配对输入框中</string>
+    <string name="again_generate_code">重新生成配对码</string>
+    <string name="again_generate_code_hint">%1$ss后重新生成配对码</string>
+    <string name="binding_successful">配对成功</string>
+    <string name="binding_successful_hint">现在可以在企业管理后台设置迎接你的第一个访客了</string>
+    <string name="open_visitors_system">开启智能访客系统</string>
+    <string name="company_name">公司名</string>
+    <string name="location_name">分部名</string>
+    <string name="again_match">重新配对门禁</string>
 
 </resources>

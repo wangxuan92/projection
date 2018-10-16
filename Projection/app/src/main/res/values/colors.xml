@@ -19,4 +19,16 @@
     <color name="theme_but_color">#008533</color>
     <color name="theme_but_color_50">#8c008533</color>
     <color name="theme_but_color_80">#d7008533</color>
+    <color name="text_color_blue_31">#011631</color>
+    <color name="but_background_green">#28C97C</color>
+    <color name="but_background_green_pressed">#00B475</color>
+    <color name="line_gray_ca">#CAD2DE</color>
+    <color name="text_color_green">#17AE7B</color>
+    <color name="text_color_blue_9c">#84909C</color>
+    <color name="text_color_blue_7f">#51667F</color>
+    <color name="text_color_blue_40">#001F40</color>
+    <color name="validation_fails_popwindow_text_color">#001F40</color>
+    <color name="but_background_enabled">#D8DFEB</color>
+
+
 </resources>
